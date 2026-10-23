@@ -1,0 +1,12 @@
+einops
+huggingface_hub
+lightning
+numpy
+omegaconf
+scikit-learn
+scipy
+torch>=2.5.0
+torchmetrics
+wandb
+webdataset
+imageio
