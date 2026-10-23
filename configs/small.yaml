@@ -1,0 +1,88 @@
+general:
+    wandb:
+        project: pixel_titok_image_new_2
+        run_name: LPIPSdynam2-SL6k-small-compGan4.0+CR10.0-DLR0.2-Lcat
+        log_step_interval: 50
+
+    checkpoints:
+        save_path: out_ckpt
+        save_interval: 1000
+        keep_prior: 2 # -1 to keep all
+        resume_from_checkpoint:
+        init_from_checkpoint:
+
+tokenizer:
+    model:
+        patch_size:  [8, 8]
+        fsq_levels: [7, 5, 5, 5, 5] # [8, 8, 8, 6, 5] - 16k
+        encoder_size: small
+        decoder_size: small
+
+    losses:
+        disc_weight: 4.0 # 0.0 to disable
+        perceptual_weight: 1.0 # 0.0
+        gram_weight: 0.0 # 0.003 # 0.2 # 0.0
+
+
+discriminator:
+    model:
+        patch_size:  [8, 8]
+        model_size: small
+
+    losses:
+        cr_weight: 10.0 # 2.0 # 10.0 # consistency reg. | paper uses 10? Higher still works fine?
+        cr_max_jitter: 0.2 # ratio
+        
+
+optimizer:
+    learning_rate: 1e-4
+    end_lr: 1e-5
+    beta1: 0.0 # disable/lower momentum for GAN stability
+    beta2: 0.99
+    warmup_steps: 1000
+    weight_decay: 1e-4
+    disc_lr_ratio: 0.2 # 1 = Same LR, 0.5 = Half LR
+
+dataset:
+    train_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-train-{0000..0575}.tar"
+    eval_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-validation-{0000..0015}.tar"
+    workers: 3
+    pin_memory: False # uses extra VRAM when enabled.
+
+
+training:
+    sampling:
+        token_range: [1, 256]
+        min_grid: [128, 128] # [128, 128]
+        max_grid: [256, 256]
+
+        min_scale: 0.25 # min crop area
+        max_aspect_ratio: 2
+
+        # seq_len is similar to batch size, but raw token count.
+        # Set as much as the GPU can handle. The dataloader will try to target this value, but never exceed.
+        perceptual_pixels: 8e6 # 4e5
+        train_seq_len: 131072
+        eval_seq_len: 16384
+
+    main:
+        max_steps: 600000
+        precision: bf16-mixed
+        accelerator: 'gpu'
+        train_devices: 1
+        enable_tf32: True
+        torch_compile: False
+
+        seed: 42
+        max_grad_norm: 1.0
+
+    eval:
+        eval_step_interval: 2000
+        eval_samples: 1024
+
+        log_codebook: True
+        log_metrics: ['mmd', 'is', 'ssim', 'psnr']
+        log_recon_num: 16
+
+        random_recon: True # whether to sample recon videos randomly from the eval set, or take the first log_recon_num
+        clear_cache: True
