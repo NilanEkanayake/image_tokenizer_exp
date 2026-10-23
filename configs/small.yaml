@@ -46,8 +46,8 @@ optimizer:
 dataset:
     train_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-train-{0000..0575}.tar"
     eval_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-validation-{0000..0015}.tar"
-    workers: 3
-    pin_memory: False # uses extra VRAM when enabled.
+    workers: 16
+    pin_memory: True # uses extra VRAM when enabled.
 
 
 training:
