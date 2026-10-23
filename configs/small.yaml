@@ -13,7 +13,7 @@ general:
 
 tokenizer:
     model:
-        patch_size:  [8, 8]
+        patch_size: [8, 8]
         fsq_levels: [7, 5, 5, 5, 5] # [8, 8, 8, 6, 5] - 16k
         encoder_size: small
         decoder_size: small
@@ -26,7 +26,7 @@ tokenizer:
 
 discriminator:
     model:
-        patch_size:  [8, 8]
+        patch_size: [8, 8]
         model_size: small
 
     losses:
@@ -35,11 +35,11 @@ discriminator:
         
 
 optimizer:
-    learning_rate: 1e-4
+    learning_rate: 3e-4
     end_lr: 1e-5
     beta1: 0.0 # disable/lower momentum for GAN stability
     beta2: 0.99
-    warmup_steps: 1000
+    warmup_steps: 5000
     weight_decay: 1e-4
     disc_lr_ratio: 0.2 # 1 = Same LR, 0.5 = Half LR
 
