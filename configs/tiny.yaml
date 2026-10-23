@@ -44,8 +44,8 @@ optimizer:
     disc_lr_ratio: 0.2 # 1 = Same LR, 0.5 = Half LR
 
 dataset:
-    train_dataset: "../monet_wds/{00000..00392}.tar"
-    eval_dataset: "../monet_wds/{00393..00402}.tar" # 5k*10 = 50k, same as imagenet val
+    train_dataset: "ds/cc3m-train-{0000..0575}.tar"
+    eval_dataset: "ds/cc3m-validation-{0000..0015}.tar"
     workers: 3
     pin_memory: False # uses extra VRAM when enabled.
 
