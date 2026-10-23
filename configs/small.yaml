@@ -44,8 +44,10 @@ optimizer:
     disc_lr_ratio: 0.2 # 1 = Same LR, 0.5 = Half LR
 
 dataset:
-    train_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-train-{0000..0575}.tar"
-    eval_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-validation-{0000..0015}.tar"
+    # train_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-train-{0000..0575}.tar"
+    # eval_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-validation-{0000..0015}.tar"
+    train_dataset: "ds/cc3m-train-{0000..0575}.tar"
+    eval_dataset: "ds/cc3m-validation-{0000..0015}.tar"
     workers: 16
     pin_memory: True # uses extra VRAM when enabled.
 
