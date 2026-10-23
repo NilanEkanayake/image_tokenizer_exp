@@ -1,7 +1,7 @@
 general:
     wandb:
         project: pixel_titok_image_new_2
-        run_name: LPIPSdynam2-SL131k-small-compGan4.0+CR10.0-DLR0.2-Lcat
+        run_name: LPIPSdynam2-SL65k-small-compGan4.0+CR10.0-DLR0.2-Lcat
         log_step_interval: 50
 
     checkpoints:
@@ -48,8 +48,8 @@ dataset:
     # eval_dataset: "hf://datasets/pixparse/cc3m-wds/cc3m-validation-{0000..0015}.tar"
     train_dataset: "ds/cc3m-train-{0000..0575}.tar"
     eval_dataset: "ds/cc3m-validation-{0000..0015}.tar"
-    workers: 16
-    pin_memory: True # uses extra VRAM when enabled.
+    workers: 4
+    pin_memory: False # uses extra VRAM when enabled.
 
 
 training:
@@ -63,8 +63,8 @@ training:
 
         # seq_len is similar to batch size, but raw token count.
         # Set as much as the GPU can handle. The dataloader will try to target this value, but never exceed.
-        perceptual_pixels: 8e6 # 4e5
-        train_seq_len: 131072
+        perceptual_pixels: 4e6 # 4e5
+        train_seq_len: 65536
         eval_seq_len: 16384
 
     main:
