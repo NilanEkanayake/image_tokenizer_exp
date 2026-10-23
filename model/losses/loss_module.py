@@ -52,9 +52,6 @@ class ReconstructionLoss(nn.Module):
             )
             self.disc_masks_dict = None
 
-        self.commit_weight = loss_g.commit_weight
-        self.codebook_weight = loss_g.codebook_weight
-
         self.cr_weight = loss_d.cr_weight
         self.cr_jitter = loss_d.cr_max_jitter
         self.total_steps = config.training.main.max_steps
