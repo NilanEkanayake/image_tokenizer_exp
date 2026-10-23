@@ -1,7 +1,7 @@
 general:
     wandb:
         project: pixel_titok_image_new_2
-        run_name: LPIPSdynam2-SL6k-small-compGan4.0+CR10.0-DLR0.2-Lcat
+        run_name: LPIPSdynam2-SL131k-small-compGan4.0+CR10.0-DLR0.2-Lcat
         log_step_interval: 50
 
     checkpoints:
